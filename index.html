@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rajvanshi Family Restaurant - Menu</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; color: #333; padding-bottom: 110px; }
+        header { background: linear-gradient(135deg, #8b0000, #d4af37); color: white; text-align: center; padding: 20px 15px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        header h1 { font-size: 22px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        header p { font-size: 14px; opacity: 0.9; }
+        .tagline { font-style: italic; color: #fff8dc; margin-top: 5px; font-weight: bold; }
+        .container { max-width: 600px; margin: 15px auto; padding: 0 10px; }
+        .section-title { font-size: 18px; color: #8b0000; margin: 20px 0 10px 5px; border-left: 4px solid #d4af37; padding-left: 8px; font-weight: bold; }
+        .item-card { background: white; border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .item-info h3 { font-size: 15px; color: #222; }
+        .item-controls { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+        .portion-btn { background: #eee; border: 1px solid #ccc; padding: 4px 8px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .portion-btn.active { background: #8b0000; color: white; border-color: #8b0000; }
+        .add-btn { background: #25d366; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .add-btn:hover { background: #1ebd56; }
+        .customer-details { background: white; border-radius: 12px; padding: 15px; margin-top: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .customer-details h3 { margin-bottom: 12px; color: #8b0000; font-size: 16px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 13px; margin-bottom: 5px; color: #444; font-weight: 600; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; background-color: #fff; }
+        .footer-cart { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top-left-radius: 16px; border-top-right-radius: 16px; box-shadow: 0 -4px 15px rgba(0,0,0,0.1); padding: 12px 20px; max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .cart-info { font-size: 14px; }
+        .cart-total { font-weight: bold; color: #8b0000; font-size: 18px; }
+        .order-btn { background: #25d366; color: white; border: none; padding: 10px 18px; border-radius: 25px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .info-box { background: #fff3cd; color: #856404; padding: 10px; border-radius: 8px; text-align: center; font-size: 12px; margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>👑 THE RAJVANSHI FAMILY RESTAURANT</h1>
+    <p>📍 महेशपुर कला, गाज़ीपुर</p>
+    <p class="tagline">✨ Every Bite, A Royal Delight!</p>
+    <p style="font-size: 11px; margin-top: 5px;">👑 Suraj & Ashish | 📞 9151418878</p>
+</header>
+
+<div class="container" id="menu-container"></div>
+
+<div class="container">
+    <div class="customer-details">
+        <h3>ऑर्डर जानकारी (Customer Info)</h3>
+        <div class="input-group">
+            <label for="cust-name">आपका नाम (Customer Name):</label>
+            <input type="text" id="cust-name" placeholder="अपना नाम लिखें">
+        </div>
+        <div class="input-group">
+            <label for="cust-table">टेबल नंबर चुनिए (Table No.):</label>
+            <select id="cust-table">
+                <option value="">-- टेबल चुनें --</option>
+                <option value="1">Table No. 1</option>
+                <option value="2">Table No. 2</option>
+                <option value="3">Table No. 3</option>
+                <option value="4">Table No. 4</option>
+                <option value="5">Table No. 5</option>
+                <option value="6">Table No. 6</option>
+                <option value="7">Table No. 7</option>
+                <option value="8">Table No. 8</option>
+                <option value="9">Table No. 9</option>
+                <option value="10">Table No. 10</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="info-box">
+        ⏱️ ऑर्डर देने के बाद कृपया 10 मिनट इंतज़ार करें।
+    </div>
+</div>
+
+<div class="footer-cart">
+    <div class="cart-info">
+        <span id="cart-count">0 आइटम</span><br>
+        <span class="cart-total" id="cart-total">₹0</span>
+    </div>
+    <button class="order-btn" id="order-whatsapp-btn" onclick="sendWhatsAppOrder()">
+        WhatsApp ऑर्डर करें 📲
+    </button>
+</div>
+
+<script>
+    const whatsappNumber = "919151418878";
+
+    const menuData = [
+        {
+            category: "🍜 नूडल्स",
+            items: [
+                { name: "वेज नूडल्स", half: 40, full: 80 },
+                { name: "हक्का नूडल्स", half: 50, full: 100 },
+                { name: "शेजवान नूडल्स", half: 60, full: 120 },
+                { name: "चिकन नूडल्स", half: 70, full: 140 },
+                { name: "अंडा नूडल्स", half: 60, full: 120 }
+            ]
+        },
+        {
+            category: "🍚 फ्राइड राइस",
+            items: [
+                { name: "वेज फ्राइड राइस", half: 70, full: 140 },
+                { name: "शेजवान फ्राइड राइस", half: 80, full: 160 },
+                { name: "पनीर फ्राइड राइस", half: 70, full: 140 },
+                { name: "चिकन फ्राइड राइस", half: 70, full: 140 },
+                { name: "चिकन बिरयानी", half: 120, full: 240 },
+                { name: "अंडा फ्राइड राइस", half: 60, full: 120 },
+                { name: "मंचूरियन फ्राइड राइस", half: 50, full: 100 }
+            ]
+        },
+        {
+            category: "🍜 चाइनीज स्पेशल",
+            items: [
+                { name: "चिली पनीर", half: 110, full: 220 },
+                { name: "चिली चिकन", half: 110, full: 220 },
+                { name: "चिकन लॉलीपॉप", half: 110, full: 220 },
+                { name: "मंचूरियन", half: 20, full: 40 },
+                { name: "पनीर रोल", half: 60, full: 120 },
+                { name: "एग रोल", half: 40, full: 50 },
+                { name: "चिकन रोल", half: 60, full: 120 }
+            ]
+        },
+        {
+            category: "🍔 बर्गर स्पेशल",
+            items: [
+                { name: "वेज बर्गर", half: 30, full: 60 },
+                { name: "अंडा बर्गर", half: 40, full: 80 },
+                { name: "पनीर बर्गर", half: 45, full: 90 },
+                { name: "चिकन बर्गर", half: 50, full: 100 }
+            ]
+        },
+        {
+            category: "🍜 सुप",
+            items: [
+                { name: "चिकन सुप", half: 50, full: 100 },
+                { name: "पनीर सुप", half: 50, full: 100 },
+                { name: "अंडा सुप", half: 40, full: 80 },
+                { name: "वेज सुप", half: 40, full: 80 },
+                { name: "मंचूरियन सुप", half: 40, full: 80 }
+            ]
+        }
+    ];
+
+    let cart = [];
+    const itemSelections = {};
+
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        container.innerHTML = '';
+
+        menuData.forEach((sec, sIdx) => {
+            const secTitle = document.createElement('div');
+            secTitle.className = 'section-title';
+            secTitle.innerText = sec.category;
+            container.appendChild(secTitle);
+
+            sec.items.forEach((item, iIdx) => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'item-card';
+                itemCard.innerHTML = `
+                    <div class="item-info">
+                        <h3>${item.name}</h3>
+                    </div>
+                    <div class="item-controls">
+                        <div>
+                            <button class="portion-btn active" id="btn-half-${sIdx}-${iIdx}" onclick="selectPortion(${sIdx}, ${iIdx}, 'Half')">Half (₹${item.half})</button>
+                            <button class="portion-btn" id="btn-full-${sIdx}-${iIdx}" onclick="selectPortion(${sIdx}, ${iIdx}, 'Full')">Full (₹${item.full})</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart(${sIdx}, ${iIdx})">+ जोड़ें (Add)</button>
+                    </div>
+                `;
+                container.appendChild(itemCard);
+            });
+        });
+    }
+
+    function selectPortion(sIdx, iIdx, portion) {
+        itemSelections[`${sIdx}-${iIdx}`] = portion;
+        const btnHalf = document.getElementById(`btn-half-${sIdx}-${iIdx}`);
+        const btnFull = document.getElementById(`btn-full-${sIdx}-${iIdx}`);
+        if(portion === 'Half') {
+            btnHalf.classList.add('active');
+            btnFull.classList.remove('active');
+        } else {
+            btnFull.classList.add('active');
+            btnHalf.classList.remove('active');
+        }
+    }
+
+    function addToCart(sIdx, iIdx) {
+        const item = menuData[sIdx].items[iIdx];
+        const portion = itemSelections[`${sIdx}-${iIdx}`] || 'Half';
+        const price = portion === 'Half' ? item.half : item.full;
+
+        cart.push({ name: item.name, portion: portion, price: price });
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        document.getElementById('cart-count').innerText = `${cart.length} कुल आइटम`;
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        document.getElementById('cart-total').innerText = `₹${total}`;
+    }
+
+    function sendWhatsAppOrder() {
+        if (cart.length === 0) {
+            alert("कृपया WhatsApp पर ऑर्डर भेजने से पहले मेनू से कम से कम एक आइटम जोड़ें!");
+            return;
+        }
+
+        const name = document.getElementById('cust-name').value.trim();
+        const tableNo = document.getElementById('cust-table').value;
+
+        if (!name) {
+            alert("कृपया अपना नाम दर्ज करें।");
+            return;
+        }
+
+        if (!tableNo) {
+            alert("कृपया टेबल नंबर (1 से 10) चुनें।");
+            return;
+        }
+
+        let total = 0;
+        let orderText = `👑 *THE RAJVANSHI FAMILY RESTAURANT*\n\n`;
+        orderText += `👤 *ग्राहक का नाम:* ${name}\n`;
+        orderText += `🪑 *टेबल नंबर:* Table ${tableNo}\n\n`;
+        orderText += `📋 *ऑर्डर सूची:*\n`;
+
+        const groupedCart = {};
+        cart.forEach(item => {
+            const key = `${item.name} (${item.portion})`;
+            if (!groupedCart[key]) {
+                groupedCart[key] = { count: 0, price: item.price };
+            }
+            groupedCart[key].count += 1;
+            total += item.price;
+        });
+
+        let idx = 1;
+        for (const [itemName, details] of Object.entries(groupedCart)) {
+            const itemTotal = details.count * details.price;
+            orderText += `${idx}. ${itemName} x ${details.count} = ₹${itemTotal}\n`;
+            idx++;
+        }
+
+        orderText += `\n💰 *कुल बिल (Total): ₹${total}*\n\n`;
+        orderText += `⏱️ *कृपया 10 मिनट इंतज़ार करें।`;
+
+        const encodedMsg = encodeURIComponent(orderText);
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    renderMenu();
+</script>
+
+</body>
+</html>
